@@ -8,28 +8,22 @@ part 'products_cubit.freezed.dart';
 
 class ProductsCubit extends Cubit<ProductsState> {
   final ProductRepository productRepository;
+
+  final List<Product> products;
   ProductsCubit({
     required this.productRepository,
+    required this.products,
   }) : super(
           const ProductsState.initial(),
         ) {
-    _loadProducts();
+    _loadImages();
   }
 
-  _loadProducts() async {
+  _loadImages() async {
     emit(const ProductsState.loading());
 
-    final products = await productRepository.getProducts();
+    final productData = await productRepository.getProductImages(products);
 
-    final Map<String, List<Product>> tags = {};
-
-    for (var product in products) {
-      product.tags!.split(', ').forEach((tag) {
-        tags.putIfAbsent(tag, () => []);
-
-        tags[tag]!.add(product);
-      });
-    }
-    emit(ProductsState.loaded(products: products, tags: tags));
+    emit(ProductsState.loaded(products: productData));
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopify/models/product.dart';
 import 'package:shopify/repositories/product_repository.dart';
 import 'package:shopify/ui/products/cubit/products_cubit.dart';
+import 'package:shopify/ui/products/cubit/tags_cubit.dart';
 import 'package:shopify/ui/products/products_page.dart';
 import 'package:shopify/ui/products/tags_page.dart';
 
@@ -20,7 +21,7 @@ class Routes {
     if (name == TagsPage.routeName) {
       return route(
         BlocProvider(
-          create: (context) => ProductsCubit(
+          create: (context) => TagsCubit(
             productRepository: RepositoryProvider.of<ProductRepository>(context),
           ),
           child: const TagsPage(),
@@ -34,11 +35,10 @@ class Routes {
       return route(
         BlocProvider(
           create: (context) => ProductsCubit(
+            products: products,
             productRepository: RepositoryProvider.of<ProductRepository>(context),
           ),
-          child: ProductsPage(
-            products: products,
-          ),
+          child: const ProductsPage(),
         ),
       );
     }

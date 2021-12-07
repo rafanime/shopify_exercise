@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopify/models/product.dart';
-import 'package:shopify/routes.dart';
-import 'package:shopify/ui/products/cubit/products_cubit.dart';
+import 'package:shopify/ui/products/cubit/tags_cubit.dart';
 import 'package:shopify/ui/products/products_page.dart';
 
 class TagsPage extends StatelessWidget {
@@ -12,19 +10,22 @@ class TagsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductsCubit, ProductsState>(
+    return BlocBuilder<TagsCubit, TagsState>(
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(title: const Text('Tags List Page')),
           body: state.maybeWhen(
-            orElse: () => const CircularProgressIndicator(),
+            orElse: () => const Center(child: CircularProgressIndicator()),
             loaded: (_, tags) {
               return Wrap(
                 direction: Axis.vertical,
                 children: tags.keys
                     .map((tag) => GestureDetector(
-                        onTap: () => Navigator.pushNamed(context, ProductsPage.routeName,
-                            arguments: tags[tag]),
+                        onTap: () => Navigator.pushNamed(
+                              context,
+                              ProductsPage.routeName,
+                              arguments: tags[tag],
+                            ),
                         child: _tagTile(tag)))
                     .toList(),
               );

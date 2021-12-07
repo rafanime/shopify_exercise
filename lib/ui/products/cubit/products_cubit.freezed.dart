@@ -25,12 +25,9 @@ class _$ProductsStateTearOff {
     return const _Loading();
   }
 
-  _Loaded loaded(
-      {required List<Product> products,
-      required Map<String, List<Product>> tags}) {
+  _Loaded loaded({required Map<Product, String> products}) {
     return _Loaded(
       products: products,
-      tags: tags,
     );
   }
 }
@@ -44,25 +41,21 @@ mixin _$ProductsState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<Product> products, Map<String, List<Product>> tags)
-        loaded,
+    required TResult Function(Map<Product, String> products) loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Product> products, Map<String, List<Product>> tags)?
-        loaded,
+    TResult Function(Map<Product, String> products)? loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Product> products, Map<String, List<Product>> tags)?
-        loaded,
+    TResult Function(Map<Product, String> products)? loaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -147,9 +140,7 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<Product> products, Map<String, List<Product>> tags)
-        loaded,
+    required TResult Function(Map<Product, String> products) loaded,
   }) {
     return initial();
   }
@@ -159,8 +150,7 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Product> products, Map<String, List<Product>> tags)?
-        loaded,
+    TResult Function(Map<Product, String> products)? loaded,
   }) {
     return initial?.call();
   }
@@ -170,8 +160,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Product> products, Map<String, List<Product>> tags)?
-        loaded,
+    TResult Function(Map<Product, String> products)? loaded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -259,9 +248,7 @@ class _$_Loading implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<Product> products, Map<String, List<Product>> tags)
-        loaded,
+    required TResult Function(Map<Product, String> products) loaded,
   }) {
     return loading();
   }
@@ -271,8 +258,7 @@ class _$_Loading implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Product> products, Map<String, List<Product>> tags)?
-        loaded,
+    TResult Function(Map<Product, String> products)? loaded,
   }) {
     return loading?.call();
   }
@@ -282,8 +268,7 @@ class _$_Loading implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Product> products, Map<String, List<Product>> tags)?
-        loaded,
+    TResult Function(Map<Product, String> products)? loaded,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -335,7 +320,7 @@ abstract class _Loading implements ProductsState {
 abstract class _$LoadedCopyWith<$Res> {
   factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) then) =
       __$LoadedCopyWithImpl<$Res>;
-  $Res call({List<Product> products, Map<String, List<Product>> tags});
+  $Res call({Map<Product, String> products});
 }
 
 /// @nodoc
@@ -350,17 +335,12 @@ class __$LoadedCopyWithImpl<$Res> extends _$ProductsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? products = freezed,
-    Object? tags = freezed,
   }) {
     return _then(_Loaded(
       products: products == freezed
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
-              as List<Product>,
-      tags: tags == freezed
-          ? _value.tags
-          : tags // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<Product>>,
+              as Map<Product, String>,
     ));
   }
 }
@@ -368,16 +348,14 @@ class __$LoadedCopyWithImpl<$Res> extends _$ProductsStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Loaded implements _Loaded {
-  const _$_Loaded({required this.products, required this.tags});
+  const _$_Loaded({required this.products});
 
   @override
-  final List<Product> products;
-  @override
-  final Map<String, List<Product>> tags;
+  final Map<Product, String> products;
 
   @override
   String toString() {
-    return 'ProductsState.loaded(products: $products, tags: $tags)';
+    return 'ProductsState.loaded(products: $products)';
   }
 
   @override
@@ -385,15 +363,12 @@ class _$_Loaded implements _Loaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Loaded &&
-            const DeepCollectionEquality().equals(other.products, products) &&
-            const DeepCollectionEquality().equals(other.tags, tags));
+            const DeepCollectionEquality().equals(other.products, products));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(products),
-      const DeepCollectionEquality().hash(tags));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(products));
 
   @JsonKey(ignore: true)
   @override
@@ -405,11 +380,9 @@ class _$_Loaded implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(
-            List<Product> products, Map<String, List<Product>> tags)
-        loaded,
+    required TResult Function(Map<Product, String> products) loaded,
   }) {
-    return loaded(products, tags);
+    return loaded(products);
   }
 
   @override
@@ -417,10 +390,9 @@ class _$_Loaded implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Product> products, Map<String, List<Product>> tags)?
-        loaded,
+    TResult Function(Map<Product, String> products)? loaded,
   }) {
-    return loaded?.call(products, tags);
+    return loaded?.call(products);
   }
 
   @override
@@ -428,12 +400,11 @@ class _$_Loaded implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Product> products, Map<String, List<Product>> tags)?
-        loaded,
+    TResult Function(Map<Product, String> products)? loaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(products, tags);
+      return loaded(products);
     }
     return orElse();
   }
@@ -474,12 +445,9 @@ class _$_Loaded implements _Loaded {
 }
 
 abstract class _Loaded implements ProductsState {
-  const factory _Loaded(
-      {required List<Product> products,
-      required Map<String, List<Product>> tags}) = _$_Loaded;
+  const factory _Loaded({required Map<Product, String> products}) = _$_Loaded;
 
-  List<Product> get products;
-  Map<String, List<Product>> get tags;
+  Map<Product, String> get products;
   @JsonKey(ignore: true)
   _$LoadedCopyWith<_Loaded> get copyWith => throw _privateConstructorUsedError;
 }
